@@ -9,13 +9,13 @@ const router = express.Router();
 router
   .route('/')
   .get(repairController.findAllRepairs)
-  .post(repairMiddleware.validateRepair, repairController.createRepair);
+  .post(repairMiddleware.validExistRepair, repairController.createRepair);
 
 router
   .route('/:id')
   .get(repairMiddleware.validExistRepair, repairController.findOneRepair)
   .patch(
-    repairMiddleware.validateRepair,
+    repairMiddleware.validExistRepair,
     repairMiddleware.validExistRepair,
     repairController.updateRepair
   )

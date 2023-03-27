@@ -1,4 +1,4 @@
-const { DataTypes, STRING } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const { db } = require('../database/config');
 
 const User = db.define('users', {
@@ -23,16 +23,14 @@ const User = db.define('users', {
   },
 
   role: {
-    type: DataTypes.STRING,
+    type: DataTypes.ENUM('client', 'employee'),
     allowNull: false,
     defaultValue: 'client',
-    enum: ['client', 'employee'],
   },
 
   status: {
-    type: DataTypes.STRING,
+    type: DataTypes.ENUM('available', 'disabled'),
     defaultValue: 'available',
-    enum: ['available', 'disabled'],
   },
 });
 

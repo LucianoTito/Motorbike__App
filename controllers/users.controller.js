@@ -16,7 +16,7 @@ exports.findAllUsers = async (req, res) => {
 
 exports.findOneUser = async (req, res) => {
   const { user } = req;
-  console.log(req.params.id);
+
   return res.status(200).json({
     status: 'success',
     message: 'The query has been done successfully',
