@@ -1,30 +1,24 @@
 const User = require('../models/users.model');
-exports.validUsers = (req, res, next) => {
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
+
+exports.validUsers = catchAsync(async (req, res, next) => {
   const { name, email, password } = req.body;
   if (!name) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'the name is required',
-    });
+    return next(new AppError('the name is required', 400));
   }
 
   if (!email) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'the email is required',
-    });
+    return next(new AppError('the email is required', 400));
   }
   if (!password) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'the password is required',
-    });
+    return next(new AppError('the password is required', 400));
   }
 
   next();
-};
+});
 
-exports.validExistUser = async (req, res, next) => {
+exports.validExistUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const user = await User.findOne({
     where: {
@@ -34,11 +28,8 @@ exports.validExistUser = async (req, res, next) => {
   });
 
   if (!user) {
-    return res.status(404).json({
-      status: 'error',
-      message: `User with id: ${id} not found`,
-    });
+    return next(new AppError('User by status: true, not found', 404));
   }
   req.user = user;
   next();
-};
+});
