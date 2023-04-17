@@ -7,6 +7,7 @@ const globalErrorHandler = require('./controllers/error.controller'); // control
 
 const usersRoutes = require('./routes/users.routes');
 const repairRoutes = require('./routes/repair.Routes');
+const authRouter = require('./routes/auth.routes');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.json()); // middleware para parsear el body de las requests a fo
 app.use(cors()); // middleware para manejar CORS
 
 /* RUTAS */
+app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/repairs', repairRoutes);
 

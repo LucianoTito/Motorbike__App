@@ -6,8 +6,11 @@ const usersController = require('../controllers/users.controller');
 /*MIDDLEWARES */
 const userMiddleware = require('../middlewares/users.middleware');
 const validationMiddleware = require('../middlewares/validations.middlewares');
+const authMiddleare = require('../middlewares/auth.middleware');
 
 const router = express.Router();
+
+router.use(authMiddleare.protect);
 
 router
   .route('/')
@@ -20,6 +23,7 @@ router
 
 router
   .route('/:id')
+  .use(authMiddleare.protectAccountOwner)
   .get(userMiddleware.validExistUser, usersController.findOneUser)
   .patch(
     validationMiddleware.createUserValidation,

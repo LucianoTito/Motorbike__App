@@ -60,3 +60,27 @@ exports.repairValidation = [
 
   this.validateFiedls,
 ];
+
+exports.loginUserValidation = [
+  body('email')
+    .notEmpty()
+    .withMessage('Email cannot be empty')
+    .isEmail()
+    .withMessage('Must be a valid email'),
+  body('password')
+    .notEmpty()
+    .withMessage('The password cannot be empty')
+    .isLength({ min: 8, max: 16 })
+    .withMessage('The password must be between 8 and 16 characters'),
+  this.validateFields,
+];
+
+exports.updateUserValidation = [
+  body('name').notEmpty().withMessage('Name cannot be empty'),
+  body('email')
+    .notEmpty()
+    .withMessage('Email cannot be empty')
+    .isEmail()
+    .withMessage('Must be a valid email'),
+  this.validateFields,
+];
