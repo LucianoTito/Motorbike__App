@@ -31,6 +31,10 @@ router
     userMiddleware.validExistUser,
     usersController.updateUser
   )
-  .delete(userMiddleware.validExistUser, usersController.deleteUser);
+  .delete(
+    userMiddleware.validExistUser,
+    authMiddleare.restrictTo('client'),
+    usersController.deleteUser
+  );
 
 module.exports = router;
