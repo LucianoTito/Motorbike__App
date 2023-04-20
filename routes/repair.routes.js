@@ -23,8 +23,8 @@ router
   );
 
 router
+  .use('/:id', authMiddleware.restrictTo('employee'))
   .route('/:id')
-  .use(authMiddleware.restrictTo('employee'))
   .get(repairMiddleware.validExistRepair, repairController.findOneRepair)
   .patch(
     validationMiddleware.repairValidation,
