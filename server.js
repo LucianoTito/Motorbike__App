@@ -1,7 +1,7 @@
 require('dotenv').config();
 const app = require('./app');
 const { db } = require('./database/config');
-const initModel = require('./models/initmodels');
+const initModel = require('./models/initmodel');
 
 db.authenticate()
   .then(() => console.log('Database Authenticate ✔'))
