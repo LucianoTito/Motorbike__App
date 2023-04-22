@@ -1,4 +1,6 @@
 const Repair = require('../models/repair.model');
+const User = require('../models/users.model');
+const catchAsyc = require('../utils/catchAsync');
 
 // Obtener todas las reparaciones pendientes
 exports.findAllRepairs = async (req, res) => {
@@ -6,6 +8,15 @@ exports.findAllRepairs = async (req, res) => {
     where: {
       status: 'pending',
     },
+
+    include: [
+      {
+        model: User,
+        attributes: {
+          exclude: ['password', 'status', 'role'],
+        },
+      },
+    ],
   });
   // Devolver respuesta con las reparaciones obtenidas
   res.status(200).json({

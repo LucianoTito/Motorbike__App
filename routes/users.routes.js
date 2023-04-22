@@ -6,11 +6,11 @@ const usersController = require('../controllers/users.controller');
 /*MIDDLEWARES */
 const userMiddleware = require('../middlewares/users.middleware');
 const validationMiddleware = require('../middlewares/validations.middlewares');
-const authMiddleare = require('../middlewares/auth.middleware');
+const authMiddleware = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
-router.use(authMiddleare.protect);
+router.use(authMiddleware.protect);
 
 router
   .route('/')
@@ -22,8 +22,9 @@ router
   );
 
 router
+
   .route('/:id')
-  .use(authMiddleare.protectAccountOwner)
+  .use(authMiddleware.protectAccountOwner)
   .get(userMiddleware.validExistUser, usersController.findOneUser)
   .patch(
     validationMiddleware.createUserValidation,
@@ -33,7 +34,7 @@ router
   )
   .delete(
     userMiddleware.validExistUser,
-    authMiddleare.restrictTo('client'),
+    authMiddleware.restrictTo('client'),
     usersController.deleteUser
   );
 
