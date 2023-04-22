@@ -22,7 +22,6 @@ router
   );
 
 router
-
   .route('/:id')
   .use(authMiddleware.protectAccountOwner)
   .get(userMiddleware.validExistUser, usersController.findOneUser)

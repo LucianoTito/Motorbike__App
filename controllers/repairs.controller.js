@@ -1,9 +1,9 @@
 const Repair = require('../models/repair.model');
 const User = require('../models/users.model');
-const catchAsyc = require('../utils/catchAsync');
+const catchAsync = require('../utils/catchAsync');
 
 // Obtener todas las reparaciones pendientes
-exports.findAllRepairs = async (req, res) => {
+exports.findAllRepairs = catchAsync(async (req, res) => {
   const repairs = await Repair.findAll({
     where: {
       status: 'pending',
@@ -25,10 +25,10 @@ exports.findAllRepairs = async (req, res) => {
     results: repairs.length,
     repairs,
   });
-};
+});
 
 // Obtener una reparación por su ID
-exports.findOneRepair = async (req, res) => {
+exports.findOneRepair = catchAsync(async (req, res) => {
   const { repair } = req;
 
   // Devolver respuesta con la reparación encontrada
@@ -37,10 +37,10 @@ exports.findOneRepair = async (req, res) => {
     message: 'The query has been done successfully',
     repair,
   });
-};
+});
 
 // Crear una nueva reparación
-exports.createRepair = async (req, res) => {
+exports.createRepair = catchAsync(async (req, res) => {
   const { date, id } = req.body;
 
   // Crear nueva reparación con los datos proporcionados en el cuerpo de la solicitud
@@ -55,10 +55,10 @@ exports.createRepair = async (req, res) => {
     message: 'The repair was successfully created',
     repair,
   });
-};
+});
 
 // Actualizar el estado de una reparación a "completado"
-exports.updateRepair = async (req, res) => {
+exports.updateRepair = catchAsync(async (req, res) => {
   const { repair } = req;
 
   // Actualizar estado de la reparación a "completado"
@@ -72,10 +72,10 @@ exports.updateRepair = async (req, res) => {
     message: 'The repair has been updated',
     repair,
   });
-};
+});
 
 // Eliminar una reparación estableciendo su estado a "cancelado"
-exports.deleteRepair = async (req, res) => {
+exports.deleteRepair = catchAsync(async (req, res) => {
   const { repair } = req;
 
   // Establecer estado de la reparación a "cancelado"
@@ -88,4 +88,4 @@ exports.deleteRepair = async (req, res) => {
     status: 'cancelled',
     message: 'The repair has been deleted',
   });
-};
+});
