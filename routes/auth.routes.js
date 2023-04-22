@@ -5,11 +5,11 @@ const authController = require('../controllers/auth.controller');
 
 /*MIDDLEWARE */
 const validations = require('../middlewares/validations.middlewares');
-const authMiddleare = require('../middlewares/auth.middleware');
+const authMiddleware = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
-router.use(authMiddleare.protect);
+router.use(authMiddleware.protect);
 
 router.post('/signup', validations.createUserValidation, authController.signup);
 
