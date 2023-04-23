@@ -63,11 +63,15 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 // Middleware para proteger rutas donde se requiere que el usuario sea el propietario de una cuenta en particular
 exports.protectAccountOwner = catchAsync(async (req, res, next) => {
-  // Comparar el ID del usuario almacenado en la sesión con el ID del usuario que se intenta modificar.
-  const { user, sessionUser } = req;
-  if (user.id !== sessionUser.id) {
+  const { user: currentUser } = req; // Obtener el usuario actual de la sesión
+  const { id } = req.params; // Obtener el ID del usuario que se intenta modificar
+
+  // Verificar si el usuario actual es el dueño de la cuenta
+  if (currentUser.id !== id) {
     return next(new AppError('You are not the owner of this account', 401));
   }
+
+  // Si el usuario actual es el dueño de la cuenta, continuar con la siguiente función de middleware
   next();
 });
 
